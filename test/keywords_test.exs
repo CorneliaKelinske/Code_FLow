@@ -35,20 +35,20 @@ defmodule CodeFlow.KeywordsTest do
     end
   end
 
-  # describe "unit_price/2" do
-  #   test "defaults to return a float" do
-  #     assert 5.0 == Keywords.unit_price(%Item{price: 10.0, quantity: 2})
-  #     assert 2.0 == Keywords.unit_price(%Item{price: 10.0, quantity: 5})
-  #     assert 10.0 == Keywords.unit_price(%Item{price: 10.0, quantity: 1})
-  #   end
+  describe "unit_price/2" do
+    test "defaults to return a float" do
+      assert 5.0 == Keywords.unit_price(%Item{price: 10.0, quantity: 2})
+      assert 2.0 == Keywords.unit_price(%Item{price: 10.0, quantity: 5})
+      assert 10.0 == Keywords.unit_price(%Item{price: 10.0, quantity: 1})
+    end
 
-  #   test "supports being returned as money with expected decimal places" do
-  #     item = %Item{price: 10.0, quantity: 4}
-  #     assert 2.5 == Keywords.unit_price(item, mode: :float)
-  #     assert "2.50" == Keywords.unit_price(item, mode: :money)
+    test "supports being returned as money with expected decimal places" do
+      item = %Item{price: 10.0, quantity: 4}
+      assert 2.5 == Keywords.unit_price(item, mode: :float)
+      assert "2.50" == Keywords.unit_price(item, mode: :money)
 
-  #     item = %Item{price: 10.0, quantity: 3}
-  #     assert "3.33" == Keywords.unit_price(item, mode: :money)
-  #   end
-  # end
+      item = %Item{price: 10.0, quantity: 3}
+      assert "3.33" == Keywords.unit_price(item, mode: :money)
+    end
+  end
 end
