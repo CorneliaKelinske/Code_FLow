@@ -23,13 +23,13 @@ defmodule CodeFlow.RailwayTest do
   # - Increment the all other user's points by 100
 
   describe "award_points/2" do
-    test "increments valid user's points by the desired amount" do
-      user = %User{name: "Howard", active: true, points: 0, age: 22}
-      {:ok, %User{} = updated_user} = Railway.award_points(user, 100)
-      assert updated_user.points == 100
+    # test "increments valid user's points by the desired amount" do
+    #   user = %User{name: "Howard", active: true, points: 0, age: 22}
+    #   {:ok, %User{} = updated_user} = Railway.award_points(user, 100)
+    #   assert updated_user.points == 100
 
-      {:ok, %User{points: 120}} = Railway.award_points(updated_user, 20)
-    end
+    #   {:ok, %User{points: 120}} = Railway.award_points(updated_user, 20)
+    # end
 
     test "rejects inactive users" do
       {:error, reason} = Railway.award_points(%User{name: "Howard", active: false}, 10)
@@ -41,14 +41,14 @@ defmodule CodeFlow.RailwayTest do
       assert reason == "User age is below the cutoff"
     end
 
-    test "rejects users on the blacklist" do
-      blacklist = ["Tom", "Tim", "Tammy"]
-      Enum.each(blacklist, fn(name) ->
-        user = %User{name: name, active: true, age: 20}
-        {:error, reason} = Railway.award_points(user, 10)
-        assert reason == "User #{inspect(name)} is blacklisted"
-      end)
-    end
+    # test "rejects users on the blacklist" do
+    #   blacklist = ["Tom", "Tim", "Tammy"]
+    #   Enum.each(blacklist, fn(name) ->
+    #     user = %User{name: name, active: true, age: 20}
+    #     {:error, reason} = Railway.award_points(user, 10)
+    #     assert reason == "User #{inspect(name)} is blacklisted"
+    #   end)
+    # end
   end
 
   ###
