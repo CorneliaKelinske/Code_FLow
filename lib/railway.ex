@@ -20,6 +20,8 @@ defmodule CodeFlow.Railway do
     user
     |> user_active?()
     |> verify_age(16)
+    |> check_blacklist()
+    
 
 
   end
@@ -33,5 +35,13 @@ defmodule CodeFlow.Railway do
     {:ok, user}
   end
   defp verify_age({:ok, _user}, _cutoff_age), do: {:error, "User age is below the cutoff"}
+  defp verify_age(error, _cutoff_age), do: error
+
+  defp check_blacklist({:ok, %User{name: name} = _user}) when name in ["Tom", "Tim", "Tammy"] do
+    {:error, "User #{inspect(name)} is blacklisted"}
+  end
+
+  defp check_blacklist({:ok, user}), do: {:ok, user}
+  defp check_blacklist(error), do: error
 
 end

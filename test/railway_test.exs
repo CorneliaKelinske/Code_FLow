@@ -41,14 +41,14 @@ defmodule CodeFlow.RailwayTest do
       assert reason == "User age is below the cutoff"
     end
 
-    # test "rejects users on the blacklist" do
-    #   blacklist = ["Tom", "Tim", "Tammy"]
-    #   Enum.each(blacklist, fn(name) ->
-    #     user = %User{name: name, active: true, age: 20}
-    #     {:error, reason} = Railway.award_points(user, 10)
-    #     assert reason == "User #{inspect(name)} is blacklisted"
-    #   end)
-    # end
+    test "rejects users on the blacklist" do
+      blacklist = ["Tom", "Tim", "Tammy"]
+      Enum.each(blacklist, fn(name) ->
+        user = %User{name: name, active: true, age: 20}
+        {:error, reason} = Railway.award_points(user, 10)
+        assert reason == "User #{inspect(name)} is blacklisted"
+      end)
+    end
   end
 
   ###
