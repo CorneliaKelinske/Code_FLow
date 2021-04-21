@@ -16,12 +16,12 @@ defmodule CodeFlow.Railway do
   Works well when the functions are designed to pass the output of one
   step as the input of the next function.
   """
-  def award_points(%User{} = user, _inc_point_value) do
+  def award_points(%User{} = user, inc_point_value) do
     user
     |> user_active?()
     |> verify_age(16)
     |> check_blacklist()
-    
+    |> add_points(inc_point_value)
 
 
   end
@@ -30,7 +30,7 @@ defmodule CodeFlow.Railway do
   defp user_active?(_user), do: {:error, "Not an active User"}
 
 
-  #defp verify_age({:ok, %User{age: nil} = user}, _cutoff_age), do: {:error, "unable to verify age"}
+  defp verify_age({:ok, %User{age: nil} = _user}, _cutoff_age), do: {:error, "unable to verify age"}
   defp verify_age({:ok, %User{age: age} = user}, cutoff_age) when age >= cutoff_age do
     {:ok, user}
   end
@@ -43,5 +43,11 @@ defmodule CodeFlow.Railway do
 
   defp check_blacklist({:ok, user}), do: {:ok, user}
   defp check_blacklist(error), do: error
+
+  defp add_points({:ok, %User{points: points} = user}, inc_point_value) do
+    {:ok, %User{user | points: points + inc_point_value}}
+  end
+
+  defp add_points(error, _inc_point_value), do: error
 
 end
