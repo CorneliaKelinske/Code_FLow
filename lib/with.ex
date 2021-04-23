@@ -20,14 +20,14 @@ defmodule CodeFlow.With do
   def place_new_order(customer_id, item_id, quantity) do
     with {:ok, customer} <- Customers.find(customer_id),
          {:ok, item} <- Items.find(item_id),
-         {:ok, %Order{id: new_id, customer: customer} = order} <- Orders.new(customer),
-         {:ok, updated_order} <- Orders.add_item(order, item, quantity),
-         :ok <- Customers.notify(customer, {:order_placed, updated_order}) do
-      {:ok, updated_order}
+         {:ok, order} <- Orders.new(customer),
+         {:ok, order} <- Orders.add_item(order, item, quantity),
+         :ok <- Customers.notify(customer, {:order_placed, order}) do
+      {:ok, order}
 
          else
           {:error, :timeout} -> {:error, "Timed out attempting to notify customer"}
-          {:error, reason} -> {:error, reason}
+          error -> error
 
 
       end
