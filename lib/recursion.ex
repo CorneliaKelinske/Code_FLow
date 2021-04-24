@@ -23,6 +23,19 @@ defmodule CodeFlow.Recursion do
     quantity * price + acc + order_total(tail)
   end
 
+  #Alternative as provided in the course:
+  # def order_total(order_items) do
+  #   do_order_total(order_items, 0)
+  # end
+
+  # defp do_order_total([%OrderItem{} = order_item | rest], total) do
+  #   do_order_total(rest, (order_item.quantity * order_item.item.price) + total)
+  # end
+
+  # defp do_order_total([], total) do
+  #   total
+  # end
+
   @doc """
   Count the number of active customers. Note: Normally this would be done with a
   query to an SQL database. This is just to practice conditionally incrementing
