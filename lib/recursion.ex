@@ -41,9 +41,20 @@ defmodule CodeFlow.Recursion do
   query to an SQL database. This is just to practice conditionally incrementing
   a counter and looping using recursion.
   """
-  def count_active(_customers) do
-
+  def count_active(customers) do
+    do_count_active(customers, 0)
   end
+
+  defp do_count_active([%CodeFlow.Schemas.Customer{active: true} | rest], total) do
+      do_count_active(rest, total+1)
+  end
+
+  defp do_count_active([%CodeFlow.Schemas.Customer{active: false} | rest], total) do
+    do_count_active(rest, total)
+  end
+
+
+  defp do_count_active([], total), do: total
 
   @doc """
   Create the desired number of customers. Provide the number of customers to
