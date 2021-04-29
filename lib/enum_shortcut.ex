@@ -21,9 +21,15 @@ defmodule CodeFlow.EnumShortcut do
   Create the desired number of customers. Provide the number of customers to
   create. Something like this could be used in a testing setup.
   """
-  def create_customers(_number) do
+  def create_customers(0), do: :ok
 
+  def create_customers(number) do
+    Enum.each(1..number, fn(num) ->
+      {:ok, _customer} = Customers.create(%{name: "Customer #{num}"})
+    end)
   end
+
+
 
   @doc """
   Sum a list of OrderItems to compute the order total.
