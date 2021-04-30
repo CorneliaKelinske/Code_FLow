@@ -12,7 +12,7 @@ defmodule CodeFlow.EnumShortcut do
   """
   alias CodeFlow.Fake.Customers
   alias CodeFlow.Schemas.Customer
-  # alias CodeFlow.Schemas.OrderItem
+  alias CodeFlow.Schemas.OrderItem
 
   # alias CodeFlow.Fake.Customers
   # alias CodeFlow.Schemas.OrderItem
@@ -34,8 +34,9 @@ defmodule CodeFlow.EnumShortcut do
   @doc """
   Sum a list of OrderItems to compute the order total.
   """
-  def order_total(_order_items) do
 
+  def order_total(order_items) do
+    Enum.reduce(order_items, 0, fn (%OrderItem{quantity: quantity, item: %{price: price}}, acc) -> quantity * price + acc end)
   end
 
   @doc """
