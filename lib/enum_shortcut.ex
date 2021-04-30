@@ -44,7 +44,12 @@ defmodule CodeFlow.EnumShortcut do
   query to an SQL database. This is just to practice conditionally incrementing
   a counter and looping using recursion.
   """
-  def count_active(_customers) do
-
+  def count_active(customers) do
+    Enum.reduce(customers, 0, fn
+      %Customer{active: true}, acc ->
+        acc + 1
+      _customer, acc ->
+        acc
+      end)
   end
 end
