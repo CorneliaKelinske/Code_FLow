@@ -12,15 +12,26 @@ defmodule CodeFlow.Comprehension do
   """
   alias CodeFlow.Schemas.User
 
-  def award_unfair_points(_users, _points) do
+  def award_unfair_points(users, points) do
+    for %User{active: true, points: value} = user <- users, String.contains?(user.name, "uc") do
+      %User{user | points: value+points}
+    end
 
   end
 
   def build_chessboard() do
+    for letter <- ["a", "b", "c", "d", "e", "f", "g", "h"],
+        num <- 1..8 do
+      %{col: letter, row: num, name: letter<>"#{num}"}
+        end
 
   end
 
-  def team_points(_users) do
+  def team_points(users) do
+    for %User{active: true, points: points} <- users, reduce: 0 do
+      acc ->
+        acc + points
+    end
 
   end
 end
