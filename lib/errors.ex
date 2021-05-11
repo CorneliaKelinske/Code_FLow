@@ -21,7 +21,12 @@ defmodule CodeFlow.Errors do
 
   end
 
-  def find_order(_id) do
+  def find_order(id) do
+    {:ok, Orders.find!(id)}
 
+  rescue
+    e in RuntimeError ->
+      {:error, e.message}
   end
+
 end
